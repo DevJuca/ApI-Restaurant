@@ -7,12 +7,14 @@ import com.example.Enums.StatusPedidoEnum;
 import com.example.Enums.TipoPedidoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +33,9 @@ public class Order implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status_pedido;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     // Construtor sem parâmetros...
     public Order(){}
@@ -80,6 +85,14 @@ public class Order implements Serializable {
         this.status_pedido = status_pedido;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -101,6 +114,8 @@ public class Order implements Serializable {
             return false;
         return true;
     }
+
+    
 
     
 }
