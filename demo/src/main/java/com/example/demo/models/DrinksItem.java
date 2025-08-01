@@ -1,7 +1,6 @@
 package com.example.demo.models;
 
 import java.io.Serializable;
-
 import com.example.Enums.DrinksEnum;
 
 import jakarta.persistence.Entity;
@@ -23,8 +22,10 @@ public class DrinksItem implements Serializable{
     private String name;
     private Double price;
     private String description;
+
     @Enumerated(EnumType.STRING)
     private DrinksEnum drinksEnum;
+
 
     public DrinksItem(){}
 

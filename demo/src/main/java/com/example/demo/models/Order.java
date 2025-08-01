@@ -2,6 +2,8 @@ package com.example.demo.models;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.example.Enums.StatusPedidoEnum;
 import com.example.Enums.TipoPedidoEnum;
@@ -14,6 +16,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -34,18 +39,27 @@ public class Order implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status_pedido;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrdemItem> items = new HashSet<>();
+
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
     // Construtor sem parâmetros...
     public Order(){}
 
+
     // Construtor padrão...
-    public Order(long id, Instant order_date, TipoPedidoEnum tipo_pedido, StatusPedidoEnum status_pedido) {
+    public Order(long id, Instant order_date, TipoPedidoEnum tipo_pedido, StatusPedidoEnum status_pedido, Customer customer) {
         this.id = id;
         this.order_date = order_date;
         this.tipo_pedido = tipo_pedido;
         this.status_pedido = status_pedido;
+        this.customer = customer;
     }
 
     // Getters and Setters...
@@ -63,6 +77,14 @@ public class Order implements Serializable {
 
     public Instant getOrder_date() {
         return order_date;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setOrder_date(Instant order_date) {
@@ -93,6 +115,11 @@ public class Order implements Serializable {
         this.payment = payment;
     }
 
+    public Set<OrdemItem> getItems() {
+        return items;
+    }
+
+    // HashCode id...
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -114,8 +141,6 @@ public class Order implements Serializable {
             return false;
         return true;
     }
-
-    
 
     
 }

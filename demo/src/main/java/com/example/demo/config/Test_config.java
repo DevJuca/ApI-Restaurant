@@ -14,19 +14,18 @@ import com.example.Enums.StatusPedidoEnum;
 import com.example.Enums.TipoPedidoEnum;
 import com.example.demo.models.Customer;
 import com.example.demo.models.DrinksItem;
+import com.example.demo.models.OrdemItem;
 import com.example.demo.models.PratoItem;
 import com.example.demo.models.Order;
 import com.example.demo.models.Payment;
 import com.example.demo.models.Restaurant;
-import com.example.demo.repository.CustomerRepository;
-import com.example.demo.repository.DrinksRepository;
-import com.example.demo.repository.OrderRepository;
-import com.example.demo.repository.PratoItemRepository;
-import com.example.demo.repository.RestaurantRepository;
+import com.example.demo.repository.*;
 
 @Configuration
 @Profile("test")
 public class Test_config implements CommandLineRunner {
+
+
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -43,6 +42,10 @@ public class Test_config implements CommandLineRunner {
     @Autowired
     private DrinksRepository drinksRepository;
 
+    @Autowired
+    private OrdemItmRepository ordemItmRepository;
+
+
     @Override
     public void run(String... args) throws Exception {
         // Customers
@@ -52,12 +55,15 @@ public class Test_config implements CommandLineRunner {
 
 
         // Orders
-        Order ord1 = new Order(0, Instant.parse("2025-07-29T13:18:45Z"), TipoPedidoEnum.Presencial, StatusPedidoEnum.EmPreparo);
-        Order ord2 = new Order(0, Instant.parse("2025-07-29T15:25:30Z"), TipoPedidoEnum.Presencial, StatusPedidoEnum.Pronto);
+        Order ord1 = new Order(0, Instant.parse("2025-07-29T13:18:45Z"), TipoPedidoEnum.Presencial, StatusPedidoEnum.EmPreparo,cust1);
+        Order ord2 = new Order(0, Instant.parse("2025-07-29T15:25:30Z"), TipoPedidoEnum.Presencial, StatusPedidoEnum.Pronto,cust2);
         orderRepository.saveAll(Arrays.asList(ord1,ord2));
+
         Payment pay1 = new Payment(null, Instant.parse("2025-07-29T13:18:45Z"), ord1);
+        Payment pay2 = new Payment(null, Instant.parse("2025-07-29T15:25:30Z"), ord2);
         ord1.setPayment(pay1);
-        orderRepository.save(ord1);
+        ord2.setPayment(pay2);
+        orderRepository.saveAll(Arrays.asList(ord1,ord2));
 
         
         // Restaurants
@@ -67,16 +73,16 @@ public class Test_config implements CommandLineRunner {
 
         
         // Pratos
-        PratoItem menuItm1 = new PratoItem(0, "Vieiras Seladas ao Purê de Ervilhas Trufado", 75.00, "Com pó de jamón ibérico e azeite de manjericão.", MenuItemEnum.ENTRADA);
-        PratoItem menuItm2 = new PratoItem(0, "Carpaccio de Beterraba Defumada", 50.00, "Finalizado com creme de kefir, pistache caramelizado e vinagrete cítrica.", MenuItemEnum.ENTRADA);
-        PratoItem menuItm3 = new PratoItem(0, "Risoto Nero com Lagostins Grelhados", 125.00, "Arroz arbório ao nero di seppia com espuma de limão siciliano.",MenuItemEnum.PRATOS_PRINCIPAIS);
-        PratoItem menuItm4 = new PratoItem(0, "Codorna Recheada com Mousseline de Castanhas", 110.00, "Servida com glacê de vinho do Porto e microlegumes tostados.",MenuItemEnum.PRATOS_PRINCIPAIS);
-        PratoItem menuItm5 = new PratoItem(0, "Tornedor de Filé com Crosta de Cogumelos Selvagens", 135.00, "Acompanhado de purê de mandioquinha e molho demi-glace de trufas negras.", MenuItemEnum.PRATOS_PRINCIPAIS);
-        PratoItem menuItm6 = new PratoItem(0, "Ravioli de Pêra e Gorgonzola ao Beurre Noisette", 112.00, "Com amêndoas laminadas e pétalas de flores comestíveis.", MenuItemEnum.PRATOS_PRINCIPAIS);
-        PratoItem menuItm7 = new PratoItem(0, "Nhoque de Batata Roxa ao Creme de Castanha-do-Pará", 145.00, "Com pesto de rúcula e farofa de semente de girassol.", MenuItemEnum.VEGANA);
-        PratoItem menuItm8 = new PratoItem(0, "Seleção Alto Nero de Queijos Artesanais Brasileiros", 70.00, "Com geleia de hibisco, brioche tostado e pó de azeitona preta.", MenuItemEnum.SOBREMESA);
-        PratoItem menuItm9 = new PratoItem(0, "Entremet de Framboesa e Chocolate Branco com Rosas", 60.00, "Sob base crocante de nougat e gelée de pétalas cristalizadas.", MenuItemEnum.SOBREMESA);
-        PratoItem menuItm10 = new PratoItem(0, "Tuille de Cacau com Sorvete de Fava Tonka", 80.00, "Finalizado com redução de balsâmico doce e flor de sal.", MenuItemEnum.SOBREMESA);
+        PratoItem menuItm1 = new PratoItem(0, "Vieiras Seladas ao Purê de Ervilhas Trufado", 25.00, "Com pó de jamón ibérico e azeite de manjericão.", MenuItemEnum.ENTRADA);
+        PratoItem menuItm2 = new PratoItem(0, "Carpaccio de Beterraba Defumada", 25.00, "Finalizado com creme de kefir, pistache caramelizado e vinagrete cítrica.", MenuItemEnum.ENTRADA);
+        PratoItem menuItm3 = new PratoItem(0, "Risoto Nero com Lagostins Grelhados", 65.00, "Arroz arbório ao nero di seppia com espuma de limão siciliano.",MenuItemEnum.PRATOS_PRINCIPAIS);
+        PratoItem menuItm4 = new PratoItem(0, "Codorna Recheada com Mousseline de Castanhas", 74.00, "Servida com glacê de vinho do Porto e microlegumes tostados.",MenuItemEnum.PRATOS_PRINCIPAIS);
+        PratoItem menuItm5 = new PratoItem(0, "Tornedor de Filé com Crosta de Cogumelos Selvagens", 80.00, "Acompanhado de purê de mandioquinha e molho demi-glace de trufas negras.", MenuItemEnum.PRATOS_PRINCIPAIS);
+        PratoItem menuItm6 = new PratoItem(0, "Ravioli de Pêra e Gorgonzola ao Beurre Noisette", 62.00, "Com amêndoas laminadas e pétalas de flores comestíveis.", MenuItemEnum.PRATOS_PRINCIPAIS);
+        PratoItem menuItm7 = new PratoItem(0, "Nhoque de Batata Roxa ao Creme de Castanha-do-Pará", 95.00, "Com pesto de rúcula e farofa de semente de girassol.", MenuItemEnum.VEGANA);
+        PratoItem menuItm8 = new PratoItem(0, "Seleção Alto Nero de Queijos Artesanais Brasileiros", 35.00, "Com geleia de hibisco, brioche tostado e pó de azeitona preta.", MenuItemEnum.SOBREMESA);
+        PratoItem menuItm9 = new PratoItem(0, "Entremet de Framboesa e Chocolate Branco com Rosas", 35.00, "Sob base crocante de nougat e gelée de pétalas cristalizadas.", MenuItemEnum.SOBREMESA);
+        PratoItem menuItm10 = new PratoItem(0, "Tuille de Cacau com Sorvete de Fava Tonka", 40.00, "Finalizado com redução de balsâmico doce e flor de sal.", MenuItemEnum.SOBREMESA);
         pratoItemRepository.saveAll(Arrays.asList(menuItm1, menuItm2, menuItm3, menuItm4, menuItm5, menuItm6, menuItm7, menuItm8, menuItm9, menuItm10));
 
 
@@ -93,6 +99,7 @@ public class Test_config implements CommandLineRunner {
         DrinksItem drink10 = new DrinksItem(0, "Licor de Baru com Baunilha do Quilombo", 36.00, "Servido em taça resfriada, com aroma defumado e final persistente.", DrinksEnum.NÃO_ALCOÓLICOS);
         drinksRepository.saveAll(Arrays.asList(drink1,drink2,drink3,drink4,drink5,drink6,drink7,drink8,drink9,drink10));
 
-
+        OrdemItem orditm1 = new OrdemItem(ord1, menuItm5, 2, menuItm5.getPrice());
+        ordemItmRepository.save(orditm1);
     }
 }

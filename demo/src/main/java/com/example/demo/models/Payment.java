@@ -57,7 +57,7 @@ public class Payment implements Serializable {
     public void setMoment(Instant moment) {
         this.moment = moment;
     }
-
+    
     public Order getOrder() {
         return order;
     }

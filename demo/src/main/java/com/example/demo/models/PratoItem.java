@@ -23,8 +23,10 @@ public class PratoItem implements Serializable{
     private String name;
     private Double price;
     private String description;
+
     @Enumerated(EnumType.STRING)
     private MenuItemEnum menuItemEnum;
+
 
     public PratoItem(){}
 
@@ -79,8 +81,6 @@ public class PratoItem implements Serializable{
     public void setMenuItemEnum(MenuItemEnum menuItemEnum) {
         this.menuItemEnum = menuItemEnum;
     }
-
-    
 
     @Override
     public int hashCode() {
