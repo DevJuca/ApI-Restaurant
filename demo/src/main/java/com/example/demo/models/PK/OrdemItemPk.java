@@ -2,6 +2,7 @@ package com.example.demo.models.PK;
 
 import java.io.Serializable;
 
+import com.example.demo.models.DrinksItem;
 import com.example.demo.models.Order;
 import com.example.demo.models.PratoItem;
 
@@ -21,6 +22,10 @@ public class OrdemItemPk implements Serializable {
     @ManyToOne
     @JoinColumn(name = "pratos_id")
     private PratoItem pratoItem;
+
+    @ManyToOne
+    @JoinColumn(name = "drinks_id")
+    private DrinksItem drinksItem;
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -42,12 +47,21 @@ public class OrdemItemPk implements Serializable {
         this.pratoItem = pratoItem;
     }
 
+    public DrinksItem getDrinksItem() {
+        return drinksItem;
+    }
+
+    public void setDrinksItem(DrinksItem drinksItem) {
+        this.drinksItem = drinksItem;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((order == null) ? 0 : order.hashCode());
         result = prime * result + ((pratoItem == null) ? 0 : pratoItem.hashCode());
+        result = prime * result + ((drinksItem == null) ? 0 : drinksItem.hashCode());
         return result;
     }
 
@@ -69,6 +83,11 @@ public class OrdemItemPk implements Serializable {
             if (other.pratoItem != null)
                 return false;
         } else if (!pratoItem.equals(other.pratoItem))
+            return false;
+        if (drinksItem == null) {
+            if (other.drinksItem != null)
+                return false;
+        } else if (!drinksItem.equals(other.drinksItem))
             return false;
         return true;
     }

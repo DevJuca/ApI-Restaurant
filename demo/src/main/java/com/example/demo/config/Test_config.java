@@ -99,7 +99,7 @@ public class Test_config implements CommandLineRunner {
         DrinksItem drink10 = new DrinksItem(0, "Licor de Baru com Baunilha do Quilombo", 36.00, "Servido em taça resfriada, com aroma defumado e final persistente.", DrinksEnum.NÃO_ALCOÓLICOS);
         drinksRepository.saveAll(Arrays.asList(drink1,drink2,drink3,drink4,drink5,drink6,drink7,drink8,drink9,drink10));
 
-        OrdemItem orditm1 = new OrdemItem(ord1, menuItm5, 2, menuItm5.getPrice());
+        OrdemItem orditm1 = new OrdemItem(ord1, menuItm5, drink4, 2, 1,menuItm5.getPrice(), drink4.getPrice());
         ordemItmRepository.save(orditm1);
     }
 }
