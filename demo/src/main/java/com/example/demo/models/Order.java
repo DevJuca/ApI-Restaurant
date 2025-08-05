@@ -8,6 +8,7 @@ import java.util.Set;
 import com.example.Enums.StatusPedidoEnum;
 import com.example.Enums.TipoPedidoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -24,6 +25,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Orders")
+@JsonPropertyOrder({ "id", "order_date", "tipo_pedido", "status_pedido", "customer", "items", "total", "payment"})
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -117,6 +119,14 @@ public class Order implements Serializable {
 
     public Set<OrdemItem> getItems() {
         return items;
+    }
+
+    public Double getTotal(){
+        double sum = 0.0;
+        for(OrdemItem x:items){
+            sum += x.getSubTotalPrato() + x.getSubTotalDrinks();
+        }
+        return sum;
     }
 
     // HashCode id...
