@@ -165,6 +165,8 @@ Após a instalção, só fazer as resquisições conforme os **Endpoints** acima
 - Simular um sistema de gerenciamento de restaurante
 
 - Aplicar os conhecimentos adquiridos em cursos
+<br>
+<br>
 
 ## 🕵🏻‍♂️ Observações
 O projeto utiliza perfil test por padrão, com banco H2 em memória.
