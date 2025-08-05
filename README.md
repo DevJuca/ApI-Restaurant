@@ -26,6 +26,8 @@ Este projeto é uma API RESTful para gerenciamento de um restaurante, desenvolvi
 - Spring Data JPA
 - H2 Database (ambiente de teste)
 - Maven
+- Postman (para testes de API)
+- PostgreSQL
 <br>
 <br>
 
@@ -130,6 +132,39 @@ cd demo
 
 ## Seed de Dados
 A classe [Test_config]() é responsável por inserir dados de exemplo no banco de dados quando a aplicação é iniciada com o perfil `test`. Isso facilita o desenvolvimento e os testes da aplicação.
+<br>
+<br>
+
+## 🧰 Requisições com Postman
+Para fazer as requisições com o Postman, deverá baixar ele. Caso não tenha, aqui esta o site para baixar: 
+
+***URL***: https://www.postman.com/downloads/
+
+Após a instalção, só fazer as resquisições conforme os **Endpoints** acima.
+<br>
+<br>
+
+## 💡 Funcionalidades
+- CRUD completo para as principais entidades
+
+- Mapeamento JPA com @OneToMany, @ManyToOne, @ManyToMany, @OneToOne
+
+- Banco de dados H2 com console web
+
+- Relacionamentos compostos com chaves primárias compostas (OrderItemPK)
+
+- População de dados iniciais via CommandLineRunner ou data.sql
+<br>
+<br>
+
+## 🎯 Objetivos do Projeto
+- Praticar a construção de APIs RESTful com Spring Boot
+
+- Aplicar conceitos de JPA e relacionamentos entre entidades
+
+- Simular um sistema de gerenciamento de restaurante
+
+- Aplicar os conhecimentos adquiridos em cursos
 <br>
 <br>
 
