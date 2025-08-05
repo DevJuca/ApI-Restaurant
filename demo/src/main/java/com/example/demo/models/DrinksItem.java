@@ -1,7 +1,11 @@
 package com.example.demo.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.example.Enums.DrinksEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +30,9 @@ public class DrinksItem implements Serializable{
 
     @Enumerated(EnumType.STRING)
     private DrinksEnum drinksEnum;
+
+    @OneToMany(mappedBy = "id.drinksItem")
+    private Set<OrdemItem> items = new HashSet<>();
 
 
     public DrinksItem(){}
@@ -79,6 +87,15 @@ public class DrinksItem implements Serializable{
 
     public void setDrinksEnum(DrinksEnum drinksEnum) {
         this.drinksEnum = drinksEnum;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for(OrdemItem x: items){
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override

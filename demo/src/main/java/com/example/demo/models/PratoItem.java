@@ -1,8 +1,11 @@
 package com.example.demo.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.example.Enums.MenuItemEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +30,9 @@ public class PratoItem implements Serializable{
 
     @Enumerated(EnumType.STRING)
     private MenuItemEnum menuItemEnum;
+
+    @OneToMany(mappedBy = "id.pratoItem")
+    private Set<OrdemItem> items = new HashSet<>();
 
 
     public PratoItem(){}
@@ -80,6 +87,15 @@ public class PratoItem implements Serializable{
 
     public void setMenuItemEnum(MenuItemEnum menuItemEnum) {
         this.menuItemEnum = menuItemEnum;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for(OrdemItem x: items){
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override
